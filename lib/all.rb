@@ -1,4 +1,6 @@
-require 'zeitwerk'
+# frozen_string_literal: true
+
+require "zeitwerk"
 
 LOADER = Zeitwerk::Loader.new
 LOADER.push_dir(__dir__)

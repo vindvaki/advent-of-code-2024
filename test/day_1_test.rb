@@ -1,4 +1,6 @@
-require_relative 'test_helper'
+# frozen_string_literal: true
+
+require_relative "test_helper"
 
 class TestDay1 < Minitest::Test
   def test_day_1_part_1

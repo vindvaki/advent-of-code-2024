@@ -1,16 +1,19 @@
-source 'https://rubygems.org'
+# frozen_string_literal: true
 
-gem 'zeitwerk'
-gem 'rake'
+source "https://rubygems.org"
+
+gem "rake"
+gem "zeitwerk"
 
 group :development, :test do
-  gem 'irb'
+  gem "irb"
+  gem "standard"
 end
 
 group :development do
-  gem 'ruby-lsp'
+  gem "ruby-lsp"
 end
 
 group :test do
-  gem 'minitest'
+  gem "minitest"
 end

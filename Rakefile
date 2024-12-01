@@ -1,7 +1,9 @@
-require "minitest/test_task"
-require_relative 'lib/all'
+# frozen_string_literal: true
 
-task :run, [:day, :part] do |t, args|
+require "minitest/test_task"
+require_relative "lib/all"
+
+task :run, [:day, :part] do |_t, args|
   input = Fixture.load("day_#{args.day}.input")
   klass = Object.const_get("Day#{args.day}")
   instance = klass.parse(input)
@@ -15,4 +17,4 @@ Minitest::TestTask.create(:test) do |t|
   t.test_globs = ["test/**/*_test.rb"]
 end
 
-task :default => :test
+task default: :test
