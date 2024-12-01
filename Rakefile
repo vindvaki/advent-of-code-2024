@@ -4,16 +4,16 @@ require "minitest/test_task"
 require_relative "lib/all"
 
 task :run, [:day, :part] do |_t, args|
-  if args.part
-    parts = [args.part]
+  parts = if args.part
+    [args.part]
   else
-    parts = [1, 2]
+    [1, 2]
   end
 
-  if args.day
-    days = [args.day]
+  days = if args.day
+    [args.day]
   else
-    days = 1..25
+    1..25
   end
 
   days.each do |day|
