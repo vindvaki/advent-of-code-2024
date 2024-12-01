@@ -16,7 +16,7 @@ class Day1
     xs = []
     ys = []
 
-    input.lines.each do |line|
+    input.each_line do |line|
       x, y = line.split
       xs << x.to_i
       ys << y.to_i
@@ -26,7 +26,8 @@ class Day1
   end
 
   def part_1
-    xs.sort
+    sum = 0
+    xs.sort.lazy
       .zip(ys.sort)
       .sum(0) { |x, y| (x - y).abs }
   end
