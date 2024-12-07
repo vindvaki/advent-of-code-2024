@@ -24,12 +24,12 @@ class Day6
 
     (0...rows).each do |row|
       (0...cols).each do |col|
-        direction = \
+        direction =
           case map[row][col]
-          when '^' then [-1, 0]
-          when '>' then [0, 1]
-          when 'v' then [1, 0]
-          when '<' then [0, -1]
+          when "^" then [-1, 0]
+          when ">" then [0, 1]
+          when "v" then [1, 0]
+          when "<" then [0, -1]
           end
 
         if direction
@@ -39,25 +39,31 @@ class Day6
       end
     end
 
-    raise ArgumentError, 'No guard found'
+    raise ArgumentError, "No guard found"
   end
 
   def part_1
-    trace(map, position, direction)
+    path = trace(map, position, direction)
+    path.keys.map(&:first).uniq.count
   end
 
   def part_2
     count = 0
     map = self.map.clone
+    path_hash = trace(map, position, direction)
+    path_array = path_hash.keys.sort_by { |k| path_hash[k] }
+    seen = Set[]
 
-    (0...rows).each do |row|
-      (0...cols).each do |col|
-        if map[row][col] == '.'
-          map[row][col] = '#'
-          count += 1 if trace(map, position, direction).nil?
-          map[row][col] = '.'
-        end
-      end
+    path_array.each_cons(2) do |(position_1, direction_1), (position_2, direction_2)|
+      # can't place on # or starting position
+      next if position_1 == position_2
+      # position_2 needs to be clear in order to reach it from this direction
+      next if seen.include?(position_2)
+      seen << position_2
+      row, col = position_2
+      map[row][col] = "O"
+      count += 1 if trace(map, position_1, direction_1, path_hash).nil?
+      map[row][col] = "."
     end
 
     count
@@ -65,27 +71,33 @@ class Day6
 
   private
 
-  def trace(map, position, direction)
+  def trace(map, source_position, source_direction, reference = {})
     visited = {}
 
-    loop do
-      return if visited[position]&.include?(direction)
+    position = source_position
+    direction = source_direction
+    source_index = reference[[source_position, source_direction]] || 0
 
-      visited[position] ||= Set[]
-      visited[position] << direction
+    (source_index..).each do |index|
+      key = [position, direction]
+      break if visited.key?(key) # new loop?
+
+      visited[key] = index
+
+      # known loop?
+      break if reference[key]&.< source_index
 
       maybe_next_position = position.zip(direction).map(&:sum)
 
       if !in_bounds?(maybe_next_position)
-        return visited.size
-      elsif map.dig(*maybe_next_position) != '#'
+        break visited
+      elsif !["#", "O"].include?(map.dig(*maybe_next_position))
         position = maybe_next_position
       else
         direction = rotate_90_right(direction)
       end
     end
   end
-
 
   def in_bounds?(pos)
     row, col = pos
