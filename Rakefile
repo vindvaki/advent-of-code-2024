@@ -3,6 +3,8 @@
 require "minitest/test_task"
 require_relative "lib/all"
 
+RubyVM::YJIT.enable
+
 task :run, [:day, :part] do |_t, args|
   parts = if args.part
     [args.part]
