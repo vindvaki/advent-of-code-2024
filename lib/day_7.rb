@@ -50,7 +50,6 @@ class Day7
     match_1(lhs, rhs, acc + x) || match_1(lhs, rhs, acc * x)
   end
 
-
   def match_2(lhs, rhs, acc)
     return lhs == acc if rhs.empty?
     return false if lhs < acc
