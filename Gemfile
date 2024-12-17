@@ -5,6 +5,7 @@ source "https://rubygems.org"
 gem "rake"
 gem "zeitwerk"
 gem "matrix"
+gem "sorted_set"
 
 group :development, :test do
   gem "irb"

@@ -24,6 +24,7 @@ GEM
     rake (13.2.1)
     rbs (3.6.1)
       logger
+    rbtree (0.4.6)
     rdoc (6.8.1)
       psych (>= 4.0.0)
     regexp_parser (2.9.3)
@@ -50,7 +51,11 @@ GEM
       rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
+    set (1.1.1)
     sorbet-runtime (0.5.11670)
+    sorted_set (1.0.3)
+      rbtree
+      set (~> 1.0)
     standard (1.42.1)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -77,6 +82,7 @@ DEPENDENCIES
   minitest
   rake
   ruby-lsp
+  sorted_set
   standard
   zeitwerk
 
