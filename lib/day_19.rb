@@ -32,22 +32,19 @@ class Day19
 
   def part_2
     cache = {}
-    regexp = /^(#{Regexp.union(patterns.map { Regexp.quote(_1) })})*$/
-    strings.grep(regexp).sum { count_combinations(_1, regexp, cache) }
+    strings.sum { count_combinations(_1, cache) }
   end
 
   private
 
-  def count_combinations(string, regexp, cache = {})
+  def count_combinations(string, cache = {})
     cache[string] ||= if string.empty?
       1
     else
       patterns.sum do |pattern|
         next 0 unless string.start_with?(pattern)
         suffix = string.delete_prefix(pattern)
-
-        next 0 unless suffix&.match?(regexp)
-        count_combinations(suffix, regexp, cache)
+        count_combinations(suffix, cache)
       end
     end
   end
