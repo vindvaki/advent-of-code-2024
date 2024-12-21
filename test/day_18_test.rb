@@ -2,6 +2,8 @@
 
 require_relative "test_helper"
 
+require "matrix"
+
 class TestDay18 < Minitest::Test
   def test_day_18_part_1
     assert_equal 22, ::Day18.parse(::Day18::EXAMPLE, rows: 7, cols: 7).part_1(12)
