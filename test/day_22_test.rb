@@ -8,5 +8,6 @@ class TestDay22 < Minitest::Test
   end
 
   def test_day_22_part_2
+    assert_equal 23, ::Day22.parse(::Day22::EXAMPLE_2).part_2
   end
 end
